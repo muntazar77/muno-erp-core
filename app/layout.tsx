@@ -4,7 +4,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/layout/theme-provider"
 import { cn } from "@/lib/utils"
 import { TooltipProvider } from "@/components/ui/tooltip"
-import QueryProvider from "@/shared/lib/QueryProvider" // استيراد الـ Provider الذي بنيناه
+import QueryProvider from "@/shared/providers/QueryProvider" // استيراد الـ Provider الذي بنيناه
 import { Metadata } from "next"
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" })
 

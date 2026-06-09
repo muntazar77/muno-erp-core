@@ -18,7 +18,9 @@ import { GalleryVerticalEndIcon, AudioLinesIcon, TerminalIcon, TerminalSquareIco
 import {Link} from "next/link"
 import { useAuth } from "@/modules/auth/hooks/useAuth";
 import { useAuthStore } from "@/modules/auth/store/authStore";
+import { NavMain } from "./nav-main";
 // This is sample data.
+NavMain
 const data = {
   user: {
     name: "shadcn",
@@ -84,6 +86,7 @@ const data = {
       icon: (
         <CircleGauge />
       ),
+      
     },
     {
       name: "Users",
@@ -103,7 +106,7 @@ const data = {
   ],
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ user, ...props }: React.ComponentProps<typeof Sidebar> & { user: any }) {
 
   return (
     <>
@@ -116,7 +119,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavProjects projects={data.Dashboard} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar> 

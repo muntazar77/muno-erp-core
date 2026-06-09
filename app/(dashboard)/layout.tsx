@@ -30,7 +30,7 @@ export default function DashboardLayout({
     
     // 1. جلب بيانات المستخدم من السيرفر
     const { data: userData, isLoading, isError } = useCurrentUser();
-
+// console.log('Current User Data sdfdf:', userData.employee);
     // 2. تحديث متجر Zustand فور وصول البيانات
     useEffect(() => {
       if (userData) {
@@ -46,21 +46,21 @@ export default function DashboardLayout({
     }, [isError, clearAuth]);
 
     // 4. شاشة تحميل أثناء جلب البيانات لأول مرة لمنع وميض الواجهات
-    // if (isLoading) {
-    //   return (
-    //     <div className="flex min-h-screen items-center justify-center bg-slate-50">
-    //       <div className="text-center">
-    //         <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-600 border-t-transparent mx-auto"></div>
-    //         <p className="mt-4 text-sm text-slate-600 font-medium">جاري تهيئة النظام والتحقق من الصلاحيات...</p>
-    //       </div>
-    //     </div>
-    //   );
-    // }
+    if (isLoading) {
+      return (
+        <div className="flex min-h-screen items-center justify-center bg-slate-50">
+          <div className="text-center">
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-600 border-t-transparent mx-auto"></div>
+            <p className="mt-4 text-sm text-slate-600 font-medium">جاري تهيئة النظام والتحقق من الصلاحيات...</p>
+          </div>
+        </div>
+      );
+    }
 
     return (
       <SidebarProvider>
         {/* الـ Sidebar سيتلقى البيانات الآن تلقائياً من الـ Store */}
-        <AppSidebar />
+        <AppSidebar  user={userData}/>
         <SidebarInset>
           <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
             <div className="flex items-center gap-2 px-4">

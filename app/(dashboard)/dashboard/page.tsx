@@ -3,6 +3,7 @@
 import { useAuth, useCurrentUser } from '@/modules/auth/hooks/useAuth';
 import { useAuthStore } from '@/modules/auth/store/authStore';
 
+import { Can } from '@/shared/providers/AbilityProvider';
 export default function DashboardPage() {
   const { logout, isLoggingOut } = useAuth();
     const { data: user } = useCurrentUser(); 
@@ -29,7 +30,7 @@ export default function DashboardPage() {
           <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
             <h3 className="text-lg font-semibold text-slate-800 mb-2">بيانات المستخدم الحالية (Zustand State):</h3>
             {user ? (
-              <pre className="text-xs font-mono text-slate-700 bg-slate-900 text-emerald-400 p-4 rounded overflow-auto dir-ltr text-left">
+              <pre className="text-xs font-mono  bg-slate-900 text-green-400 p-4 rounded overflow-auto dir-ltr text-left">
                 {JSON.stringify(user, null, 2)}
               </pre>
             ) : (
@@ -46,19 +47,22 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
-         <div className="max-w-4xl mx-auto bg-white rounded-xl p-6 shadow-sm border border-slate-200">
-      <h1 className="text-2xl font-bold text-slate-900 mb-2">لوحة التحكم الرئيسية</h1>
-      <p className="text-sm text-slate-500 mb-6">مرحباً بك مجدداً في النظام</p>
+        <div className="p-6 bg-white rounded-xl shadow">
+      <h1 className="text-xl font-bold mb-4">إدارة عمليات اللوجستيات</h1>
 
-      <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
-        <h3 className="text-lg font-semibold text-slate-800 mb-2">بيانات المستخدم الحالية (Query Cache):</h3>
-        {user ? (
-          <pre className="text-xs font-mono text-emerald-400 bg-slate-900 p-4 rounded overflow-auto text-left" dir="ltr">
-            {JSON.stringify(user, null, 2)}
-          </pre>
-        ) : (
-          <p className="text-sm text-slate-500 italic">لم يتم العثور على بيانات المستخدم.</p>
-        )}
+      <div className="space-x-2 space-x-reverse">
+        {/* زر يظهر للجميع */}
+        <button className="bg-slate-200 px-4 py-2 rounded">عرض الشحنات</button>
+
+        {/* 🌟 زر مخصص يظهر فقط إذا كان المستخدم يملك صلاحية إنشاء (create) على موديول الشحنات (Delivery) */}
+        <Can I="create" a="Delivery">
+          <button className="bg-blue-600 text-white px-4 py-2 rounded">➕ إضافة شحنة جديدة</button>
+        </Can>
+
+        {/* 🌟 زر خطير يظهر فقط لمن يملك صلاحية حذف (delete) على موديول المستخدمين (User) */}
+        <Can I="delete" a="User">
+          <button className="bg-red-600 text-white px-4 py-2 rounded">❌ حذف مستخدم</button>
+        </Can>
       </div>
     </div>
     </div>

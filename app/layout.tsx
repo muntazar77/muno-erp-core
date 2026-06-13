@@ -7,7 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip"
 import QueryProvider from "@/shared/providers/QueryProvider" // استيراد الـ Provider الذي بنيناه
 import { Metadata } from "next"
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" })
-
+import AbilityProvider from "@/shared/providers/AbilityProvider" // استيراد الـ Provider الجديد
 const fontMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
@@ -34,9 +34,11 @@ export default function RootLayout({
     >
       <body>
         <QueryProvider>
-          <ThemeProvider>
-            <TooltipProvider>{children}</TooltipProvider>
-          </ThemeProvider>
+          <AbilityProvider>
+            <ThemeProvider>
+              <TooltipProvider>{children}</TooltipProvider>
+            </ThemeProvider>
+          </AbilityProvider>
         </QueryProvider>
       </body>
     </html>
